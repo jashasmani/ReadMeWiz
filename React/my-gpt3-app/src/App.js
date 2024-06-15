@@ -1,62 +1,70 @@
+// src/App.js
 import React, { useState } from "react";
 import axios from "axios";
-import { FiCopy } from "react-icons/fi"; // Assuming you have React Icons installed for copy icon
+import { FiSend } from "react-icons/fi"; // Send icon from react-icons/fi
+import "./App.css"; // Import your CSS for styling
 
-const InputForm = () => {
+const App = () => {
   const [inputText, setInputText] = useState("");
-  const [outputText, setOutputText] = useState("");
-  const [copied, setCopied] = useState(false);
-
-  const handleInputChange = (e) => {
-    setInputText(e.target.value);
-  };
+  const [messages, setMessages] = useState([]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!inputText.trim()) return; // Prevent sending empty messages
+
     try {
       const response = await axios.post("http://localhost:5000/api", {
         userMessage: inputText,
       });
-      setOutputText(response.data.readme_content);
-      setCopied(false); // Reset copied state on new submit
+
+      // const botResponse = response.data.readme_content;
+      const botResponse =
+        "# README ## Description **AVL Trees vs Red-Black Trees** | **Characteristic** | **AVL Trees** | **Red-Black Trees** | |---|---|---| | **Invention** | Adelson-Velsky and Landis | Stanford C++ library | | **Type** | Self-balancing binary search tree | Self-balancing binary search tree | | **Balancing** | Ensures balance factor of -1, 0, or +1 for every node | Enforces properties related to node colors and tree structure | | **Rotations** | Single and double rotations (4 types) | Fewer rotations on average (3 types) | | **Efficiency** | Guaranteed (O(log n)) time complexity for search, but slower insertions and deletions | (O(log n)) time complexity for search, insertion, and deletion | | **Usage** | Preferred when search operations are more frequent | Preferred when insertions and deletions are more frequent |";
+
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        { text: inputText, sender: "user" },
+        { text: botResponse, sender: "bot" },
+      ]);
+
+      setInputText(""); // Clear input after sending
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText(outputText);
-    setCopied(true);
-  };
-
   return (
     <div className="chat-container">
       <div className="chat-box">
-        <div className="chat-message user-message">{inputText}</div>
-        {outputText && (
-          <div className="chat-message bot-message">
-            <pre>{outputText}</pre>
-            <button className="copy-button" onClick={handleCopy}>
-              <FiCopy />
-            </button>
+        {messages.map((message, index) => (
+          <div
+            key={index}
+            className={`chat-message ${
+              message.sender === "user" ? "user-message" : "bot-message"
+            }`}
+          >
+            {message.sender === "bot" ? (
+              <pre>{message.text}</pre>
+            ) : (
+              message.text
+            )}
           </div>
-        )}
+        ))}
       </div>
       <form onSubmit={handleSubmit} className="input-form">
-        <textarea
-          className="input-textarea"
+        <input
+          type="text"
           value={inputText}
-          onChange={handleInputChange}
-          placeholder="Enter your prompt..."
-          rows={6}
+          onChange={(e) => setInputText(e.target.value)}
+          placeholder="Type your message..."
+          className="input-text"
         />
-        <button type="submit" className="submit-button">
-          Generate README.md
+        <button type="submit" className="send-button">
+          <FiSend />
         </button>
       </form>
-      {copied && <div className="copy-message">Copied to clipboard!</div>}
     </div>
   );
 };
 
-export default InputForm;
+export default App;
