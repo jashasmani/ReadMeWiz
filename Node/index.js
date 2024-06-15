@@ -1,32 +1,33 @@
-const express = require("express");
-const bodyParser = require("body-parser");
-const axios = require("axios");
-const cors = require("cors");
-const app = express();
-const port = process.env.PORT || 5000;
+const axios = require('axios');
 
-app.use(bodyParser.json());
-app.use(cors());
+// Set the API key directly
+const GOOGLE_API_KEY = 'AIzaSyBlUQW7EALQTRKsZpFSoUIyjvOPUeqTAis';
+const GENERATE_TEXT_URL = 'https://generativeai.googleapis.com/v1/models/gemini-pro:generateText';
 
-const { GoogleGenerativeAI } = require("@google/generative-ai");
+async function generateText(prompt) {
+  try {
+    const response = await axios.post(
+      GENERATE_TEXT_URL,
+      {
+        prompt: prompt,
+        maxTokens: 100,  // adjust this according to your needs
+        temperature: 0.7,  // adjust this according to your needs
+        topP: 0.9  // adjust this according to your needs
+      },
+      {
+        headers: {
+          'Authorization': `Bearer ${GOOGLE_API_KEY}`,
+          'Content-Type': 'application/json'
+        }
+      }
+    );
 
-// Access your API key as an environment variable (see "Set up your API key" above)
-const genAI = new GoogleGenerativeAI(process.env.API_KEY);
-
-async function run() {
-  // The Gemini 1.5 models are versatile and work with both text-only and multimodal prompts
-  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-
-  const prompt = "Write a story about a magic backpack.";
-
-  const result = await model.generateContent(prompt);
-  const response = await result.response;
-  const text = response.text();
-  console.log(text);
+    const generatedText = response.data.choices[0].text;
+    console.log(generatedText);
+  } catch (error) {
+    console.error("Error generating text:", error.response ? error.response.data : error.message);
+  }
 }
 
-run();
-
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
-});
+const prompt = "Write a story about a magic backpack.";
+generateText(prompt);
