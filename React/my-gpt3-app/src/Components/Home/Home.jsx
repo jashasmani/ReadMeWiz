@@ -3,10 +3,10 @@ import { Alert } from "antd";
 import axios from "axios";
 import { FiSend } from "react-icons/fi";
 import "./Home.css";
-import { botResponse, inputText } from "../data";
+// import { botResponse, inputText } from "../data";
 
 const Home = () => {
-  // const [inputText, setInputText] = useState("");
+  const [inputText, setInputText] = useState("");
   const [messages, setMessages] = useState([]);
 
   const [showAlert, setShowAlert] = useState(false);
@@ -33,11 +33,11 @@ const Home = () => {
     if (!inputText.trim()) return;
 
     try {
-      // const response = await axios.post("http://localhost:5000/api", {
-      //   userMessage: inputText,
-      // });
+      const response = await axios.post("https://readmewiz.onrender.com/api", {
+        userMessage: inputText,
+      });
 
-      // const botResponse = response.data.readme_content;
+      const botResponse = response.data.readme_content;
 
       setMessages((prevMessages) => [
         ...prevMessages,
@@ -45,7 +45,7 @@ const Home = () => {
         { text: botResponse, sender: "bot" },
       ]);
 
-      // setInputText("");
+      setInputText("");
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -102,12 +102,12 @@ const Home = () => {
             type="text"
             style={{ height: textareaHeight }}
             value={inputText}
-            // onChange={(e) => setInputText(e.target.value)}
+            onChange={(e) => setInputText(e.target.value)}
             placeholder="Type your message..."
             className="input-text"
             id="multiline-input"
           />
-          <div className="div-btn"  style={{ height: textareaHeight }}>
+          <div className="div-btn" style={{ height: textareaHeight }}>
             <button type="submit" className="send-button">
               <FiSend />
             </button>
