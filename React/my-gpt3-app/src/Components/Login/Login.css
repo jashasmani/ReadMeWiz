@@ -1,19 +1,4 @@
 body {
-  /* background-image: linear-gradient(
-    to bottom,
-    #0f0633,
-    #0f0633,
-    #0f0633,
-    #0f0633,
-    #0f0633,
-    #0f0b37,
-    #0f0f3c,
-    #0f1240,
-    #10184a,
-    #101f55,
-    #0e255f,
-    #0a2c6a
-  ); */
   min-height: 100vh;
   margin: 0;
   padding: 0;
@@ -23,8 +8,6 @@ body {
 }
 
 .outline {
-  /* background: rgb(34,193,195);
-    background: linear-gradient(135deg, rgba(34,193,195,1) 0%,     rgba(253,187,45,1) 100%); */
   background-image: linear-gradient(
     to right bottom,
     #051937,
@@ -123,18 +106,16 @@ body {
   padding-bottom: 1.5rem;
 }
 
-
-
 #iconGroup {
   display: flex;
   justify-content: center;
   padding: 2rem 0;
 }
 
-.space{
-    width: 10rem;
-    display: flex;
-    justify-content: space-around;
+.space {
+  width: 10rem;
+  display: flex;
+  justify-content: space-around;
 }
 
 #iconGroup a {

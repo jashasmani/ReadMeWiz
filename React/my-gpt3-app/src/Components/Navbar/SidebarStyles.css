@@ -11,7 +11,7 @@ body {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  overflow-y: auto; /* Enable vertical scrolling if necessary */
+  overflow-y: auto; 
   z-index: 1;
   background: #F7F9F2;
 }
@@ -23,29 +23,29 @@ body {
   padding: 10px;
   margin-bottom: 10px;
   border-radius: 5px;
-  overflow-wrap: break-word; /* Ensure long words break and wrap */
+  overflow-wrap: break-word; 
   word-wrap: break-word;
-  white-space: pre-wrap; /* Preserve whitespace and handle long texts */
+  white-space: pre-wrap;
   position: relative;
   max-width: 80%;
 }
 
 .user-message {
-  background-color: #d3f1e0; /* Example background color for user messages */
+  background-color: #d3f1e0; 
   align-self: flex-end;
 }
 
 .bot-message {
   display: flex;
   flex-direction: column;
-  background-color: #fdffe2; /* Example background color for bot messages */
+  background-color: #fdffe2; 
   align-self: flex-start;
 }
 
 pre {
-  margin: 0; /* Remove default margin from pre element */
-  white-space: pre-wrap; /* Ensure pre-wrapped text in pre element */
-  word-break: break-word; /* Break words if they are too long */
+  margin: 0; 
+  white-space: pre-wrap; 
+  word-break: break-word; 
 }
 
 .message-text {
