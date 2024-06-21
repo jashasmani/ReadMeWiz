@@ -33,11 +33,12 @@ const Home = () => {
     if (!inputText.trim()) return;
 
     try {
-      const response = await axios.post("https://readmewiz.onrender.com/api", {
-        userMessage: inputText,
-      });
-
-      const botResponse = response.data.readme_content;
+      // const response = await axios.post("https://readmewiz.onrender.com/api", {
+      //   userMessage: inputText,
+      // });
+      // const botResponse = response.data.readme_content;
+      const response = "zdvnjzdnvzvnzjczdhvbkhdgdhvjb";
+      const botResponse = response;
 
       setMessages((prevMessages) => [
         ...prevMessages,
@@ -46,6 +47,7 @@ const Home = () => {
       ]);
 
       setInputText("");
+      setTextareaHeight(``);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
