@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Alert, Button, Breadcrumb, Layout, Menu, theme } from "antd";
 import axios from "axios";
 import { Form, Input } from "antd";
+import { RiSpeakFill } from "react-icons/ri";
 import { FiSend } from "react-icons/fi";
 import {
   DesktopOutlined,
@@ -60,6 +61,10 @@ const App = () => {
       setTimeout(() => setShowAlert(false), 3000); // Hide alert after 3 seconds
     });
   };
+  const copyToSpeak = (text) => {
+    const utterance = new SpeechSynthesisUtterance(text);
+    speechSynthesis.speak(utterance);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -87,7 +92,7 @@ const App = () => {
   };
 
   return (
-    <Layout style={{ minHeight: "100vh" ,overflowY:'none'}}>
+    <Layout style={{ minHeight: "100vh", overflowY: "none" }}>
       <Sider
         collapsible
         collapsed={collapsed}
@@ -137,12 +142,20 @@ const App = () => {
                         width: "100%",
                       }}
                     >
-                      <button
-                        className="copy-button"
+                      <Button
+                        shape="circle"
+                        onClick={() => copyToSpeak(message.text)}
+                        icon={<RiSpeakFill />}
+                      ></Button>
+                      <Button
+                        // className="copy-button"
+                        type="primary"
+                        style={{ marginLeft: "1rem" }}
+
                         onClick={() => copyToClipboard(message.text)}
                       >
                         Copy
-                      </button>
+                      </Button>
                     </div>
                   ) : null}
                   <div className="message-text">
@@ -167,7 +180,7 @@ const App = () => {
                 <FiSend />
               </Button>
             </form>
-            <div style={{ textAlign: "center",marginTop:'0.4rem' }}>
+            <div style={{ textAlign: "center", marginTop: "0.4rem" }}>
               ReadMeWiz ©{new Date().getFullYear()} Created by Jash Asmani
             </div>
           </div>
