@@ -15,17 +15,12 @@ ReadMeWiz is a web application designed to simplify the process of creating docu
 
 ## Getting Started
 
-### Prerequisites
-
-- Node.js
-- Python
-- Flask
 
 ### Installation
 
 1. Clone the repository:
     ```sh
-    git clone https://github.com/your-username/ReadMeWiz.git
+    git clone https://github.com/jashasmani/ReadMeWiz.git
     ```
 2. Navigate to the project directory:
     ```sh
