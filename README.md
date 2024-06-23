@@ -1,1 +1,1 @@
-# README-GENERATOR
+# ReadMeWiz
